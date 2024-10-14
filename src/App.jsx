@@ -1,36 +1,37 @@
 import CopySymbol from "./assets/Symobol Of Copy .png";
 import "./App.css";
-import { useState, useCallback,useRef,useEffect } from "react";
+import { useState, useCallback, useRef, useEffect } from "react";
 
 function App() {
   const [length, setLength] = useState(8);
   const [numberAllow, setNumberAllowe] = useState(false);
-  const [characterAllow, setcharacterAllow] = useState(false);
+  const [SmallAlphabetAllow, SetSmallAlphabetAllow] = useState(false);
+  const [CapitalAlphabetAllow, SetCapitalAlphabetAllow] = useState(false);
   const [uniqueAllow, setuniqueAllow] = useState(false);
   const [password, setPassword] = useState("");
 
   const passwordGenerator = useCallback(() => {
     let pass = "";
-    let str = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+    let str = "";
+    if(SmallAlphabetAllow) str +="abcdefghijklmnopqrstuvwxyz";
+    if(CapitalAlphabetAllow) str +="ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     if (numberAllow) str += "0123456789";
-    if (characterAllow) str += "!@#$%^&*(){}[]|?/";
-    if (uniqueAllow) str += "123456789!@#$%^&*&~)";
+    if (uniqueAllow) str += "~!@#$%^&*({}[]\/";
     for (let i = 1; i <= length; i++) {
       let char = Math.floor(Math.random() * str.length + 1);
       pass += str.charAt(char);
     }
     setPassword(pass);
-  }, [length, numberAllow, characterAllow, uniqueAllow, setPassword]);
+  }, [length, numberAllow, SmallAlphabetAllow, CapitalAlphabetAllow, uniqueAllow, setPassword]);
 
- 
   useEffect(() => {
     passwordGenerator();
-  }, [length, numberAllow, characterAllow, uniqueAllow, passwordGenerator]);
-  let passwordref=useRef(null);
-  let clicktocopy = useCallback(()=>{
+  }, [length, numberAllow, SmallAlphabetAllow, CapitalAlphabetAllow, uniqueAllow, passwordGenerator]);
+  let passwordref = useRef(null);
+  let clicktocopy = useCallback(() => {
     passwordref.current?.select();
-      window.navigator.clipboard.writeText(password)
-  },[password])
+    window.navigator.clipboard.writeText(password);
+  }, [password]);
   return (
     <>
       <div className="mainContainer">
@@ -43,7 +44,12 @@ function App() {
             className="passwordInput"
             ref={passwordref}
           />{" "}
-          <img className="copysymbol" src={CopySymbol} alt="copy button" onClick={clicktocopy} />
+          <img
+            className="copysymbol"
+            src={CopySymbol}
+            alt="copy button"
+            onClick={clicktocopy}
+          />
           {/* <div className="underline"></div> */}
         </div>
         <h2 className="headline">Customize your password</h2>
@@ -72,24 +78,51 @@ function App() {
             <ul>
               <li>
                 <label>
-                  <input type="checkbox" defaultChecked={characterAllow} onChange={()=>{
-                    setcharacterAllow((prev)=>!prev);
-                  }}/> Add Character{" "}
+                  <input
+                    type="checkbox"
+                    defaultChecked={SmallAlphabetAllow}
+                    onChange={() => {
+                      SetSmallAlphabetAllow((prev) => !prev);
+                    }}
+                  />{" "}
+                  Add Small Alphabet{" "}
                 </label>
               </li>
               <li>
                 <label>
-                  <input type="checkbox" defaultChecked={numberAllow} onChange={()=>{
-                    setNumberAllowe((prev)=>!prev);
-                  }}/> Add Number
+                  <input
+                    type="checkbox"
+                    defaultChecked={CapitalAlphabetAllow}
+                    onChange={() => {
+                      SetCapitalAlphabetAllow((prev) => !prev);
+                    }}
+                  />{" "}
+                  Add Capital Alphabet{" "}
+                </label>
+              </li>
+              <li>
+                <label>
+                  <input
+                    type="checkbox"
+                    defaultChecked={numberAllow}
+                    onChange={() => {
+                      setNumberAllowe((prev) => !prev);
+                    }}
+                  />{" "}
+                  Add Number
                 </label>
               </li>
               <li>
                 <label>
                   {" "}
-                  <input type="checkbox" defaultChecked={uniqueAllow} onChange={()=>{
-                    setuniqueAllow((prev)=>!prev)
-                  }} /> Add Unique Symbol{" "}
+                  <input
+                    type="checkbox"
+                    defaultChecked={uniqueAllow}
+                    onChange={() => {
+                      setuniqueAllow((prev) => !prev);
+                    }}
+                  />{" "}
+                  Add Unique Symbol{" "}
                 </label>
               </li>
             </ul>
