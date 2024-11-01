@@ -1,4 +1,4 @@
-import CopySymbol from "./assets/Symobol Of Copy .png";
+import CopySymbol from "./assets/copy-icon.png"
 import "./App.css";
 import { useState, useCallback, useRef, useEffect } from "react";
 
@@ -79,6 +79,7 @@ function App() {
               <li>
                 <label>
                   <input
+                  className="checkbox"
                     type="checkbox"
                     defaultChecked={SmallAlphabetAllow}
                     onChange={() => {
@@ -91,6 +92,7 @@ function App() {
               <li>
                 <label>
                   <input
+                  className="checkbox"
                     type="checkbox"
                     defaultChecked={CapitalAlphabetAllow}
                     onChange={() => {
@@ -103,6 +105,7 @@ function App() {
               <li>
                 <label>
                   <input
+                  className="checkbox"
                     type="checkbox"
                     defaultChecked={numberAllow}
                     onChange={() => {
@@ -117,6 +120,7 @@ function App() {
                   {" "}
                   <input
                     type="checkbox"
+                    className="checkbox"
                     defaultChecked={uniqueAllow}
                     onChange={() => {
                       setuniqueAllow((prev) => !prev);
@@ -129,6 +133,7 @@ function App() {
           </div>
         </div>
       </div>
+
     </>
   );
 }
