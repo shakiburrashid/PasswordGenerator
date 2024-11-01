@@ -62,7 +62,7 @@
 }
 
 .headline {
-    color: #ffbc3e;
+    color: #fdca30;  
     display: grid;
     justify-content: center;
     font-size: 2.2rem;
@@ -128,14 +128,16 @@
         cursor: pointer;
     }
 }
+.checkbox{
+    accent-color:#fdca30;
+    
+}
 @media only screen and (max-width: 600px) {
     .checkbox  {
         width: 1.2rem;
         height: 1.1rem;
     }
 }
-
-
 ul li {
     list-style: none;
     cursor: pointer;
